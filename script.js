@@ -52,6 +52,23 @@ const pokemons = [
 ];
 
 /**
+ * Crée le code HTML pour créer une carte Pokémon
+ * @param pokemon Pokémon à créé la carte
+ * @return le code HTML
+ */
+function generatePokemonCardHTML(pokemon) {
+
+    let typesPokemon = pokemon.type.split(",");
+
+    return `<div class='pokemon-card' style='background: #705898;'>` +
+        `<img src='images/${pokemon.img}' alt='${pokemon.name}'>` +
+        `<h2>${pokemon.name}</h2>` +
+        `<div>Type: ${typesPokemon.join(', ')}</div>` +
+        `<div>Niveau: ${pokemon.level}</div>` +
+        `</div>`;
+}
+
+/**
  * Ajoute du HTML dans le site à l'endroit où sont affichés les pokémons pour afficher les pokémons
  * selon le tableau dans script.js
  */
@@ -60,6 +77,10 @@ function displayPokemons(){
     pokemonContainer.innerHTML = "";
 
     for (let pokemon of pokemons) {
+        pokemonContainer.innerHTML += generatePokemonCardHTML(pokemon);
+    }
+
+    /*for (let pokemon of pokemons) {
         let types = pokemon.type.split(",");
 
         let typesHTML = "";
@@ -69,7 +90,7 @@ function displayPokemons(){
         }
 
         pokemonContainer.innerHTML += "<p>" + pokemon.name + " " + typesHTML + "</p>";
-    }
+    }*/
 
     if (pokemons.length === 0) {
         pokemonContainer.innerHTML = "<p>Dracaufeu a tout brûlé, aucun Pokémon ne correspond à ta recherche !</p>";
@@ -77,3 +98,5 @@ function displayPokemons(){
 }
 
 displayPokemons();
+
+addEventListener('load', displayPokemons);
