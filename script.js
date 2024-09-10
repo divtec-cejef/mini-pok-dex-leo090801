@@ -60,12 +60,23 @@ function generatePokemonCardHTML(pokemon) {
 
     let typesPokemon = pokemon.type.split(",");
 
-    return `<div class='pokemon-card' style='background: #705898;'>` +
-        `<img src='images/${pokemon.img}' alt='${pokemon.name}'>` +
+    let codeHTMLCard = "";
+
+    if (typesPokemon.length === 1) {
+        // Cas si le pokemon a qu'un seul type
+        codeHTMLCard += `<div class='pokemon-card' style ='background: ${typeColors[typesPokemon]};'>`;
+    } else {
+        // Cas si le pokemon a deux types
+        codeHTMLCard += `<div class='pokemon-card' style ='background: linear-gradient(to right, ${typeColors[typesPokemon[0]]} 50%, ${typeColors[typesPokemon[1]]} 50%);'>`;
+    }
+
+    codeHTMLCard += `<img src='images/${pokemon.img}' alt='${pokemon.name}'>` +
         `<h2>${pokemon.name}</h2>` +
         `<div>Type: ${typesPokemon.join(', ')}</div>` +
         `<div>Niveau: ${pokemon.level}</div>` +
         `</div>`;
+
+    return codeHTMLCard;
 }
 
 /**
