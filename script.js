@@ -12,6 +12,9 @@ const DEFAULT_COLOR = '#ccc';
 //conntient le conteneur html qui contient les pokémons
 const pokemonContainer = document.querySelector(".pokemon-container");
 
+//contient le input de la recherche des pokémons
+const searchBar = document.getElementById("search-bar");
+
 // Couleurs pour chaque type de Pokémon
 const typeColors = {
     'Electrique': '#FFD700',
@@ -80,6 +83,15 @@ function generatePokemonCardHTML(pokemon) {
 }
 
 /**
+ * trie et filtre les pokemons
+ */
+function filterAndSortPokemons() {
+    let searchBarValue = searchBar.value.toLowerCase();
+
+    return pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchBarValue));
+}
+
+/**
  * Ajoute du HTML dans le site à l'endroit où sont affichés les pokémons pour afficher les pokémons
  * selon le tableau dans script.js
  */
@@ -87,7 +99,7 @@ function displayPokemons(){
 
     pokemonContainer.innerHTML = "";
 
-    for (let pokemon of pokemons) {
+    for (let pokemon of filterAndSortPokemons()) {
         pokemonContainer.innerHTML += generatePokemonCardHTML(pokemon);
     }
 
@@ -111,3 +123,5 @@ function displayPokemons(){
 displayPokemons();
 
 addEventListener('load', displayPokemons);
+
+searchBar.addEventListener('input', displayPokemons);
